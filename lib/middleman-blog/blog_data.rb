@@ -60,10 +60,10 @@ module Middleman
       # of BlogArticles associated with that tag.
       # @return [Hash<String, Array<Middleman::Sitemap::Resource>>]
       def tags
-        tags = {}
+        section = {}
 
         @_articles.each do |article|
-          article.sections[section.name].each do |tag|
+          article.section.each.each do |tag|
             tags[tag] ||= []
             tags[tag] << article
           end
@@ -71,7 +71,7 @@ module Middleman
 
         # Sort each tag's list of articles
         tags.each do |tag, articles|
-          tags[tag] = articles.sort_by(&:date).reverse
+          tags[section.name] = articles.sort_by(&:date).reverse
         end
 
         tags
