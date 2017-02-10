@@ -11,6 +11,7 @@ module Middleman
         @sitemap = app.sitemap
         @blog_controller = blog_controller
         @tag_link_template = uri_template blog_controller.options.taglink
+        @section_link_template = uri_template blog_controller.options.sectionlink
         @tag_template = blog_controller.options.tag_template
         @blog_data = blog_controller.data
 
