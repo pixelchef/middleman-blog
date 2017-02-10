@@ -10,40 +10,39 @@ module Middleman
       def initialize(app, blog_controller)
         @sitemap = app.sitemap
         @blog_controller = blog_controller
-        @tag_link_template = uri_template blog_controller.options.taglink
         @section_link_template = uri_template blog_controller.options.sectionlink
         @section_template = blog_controller.options.section_template
         @blog_data = blog_controller.data
 
-        @generate_tag_pages = blog_controller.options.generate_tag_pages
+        @generate_section_pages = blog_controller.options.generate_section_pages
       end
 
       # Get a path to the given tag, based on the :taglink setting.
       # @param [String] tag
       # @return [String]
-      def link(tag)
-        apply_uri_template @section_link_template, tag: safe_parameterize(tag)
+      def link(section)
+        apply_uri_template @section_link_template, section: safe_parameterize(section)
       end
 
       # Update the main sitemap resource list
       # @return [void]
       def manipulate_resource_list(resources)
-        return resources unless @generate_tag_pages
+        return resources unless @generate_section_pages
 
-        resources + @blog_data.section.map do |tag, articles|
-          tag_page_resource(tag, articles)
+        resources + @blog_data.sections.map do |section, articles|
+          section_page_resource(section, articles)
         end
       end
 
       private
 
-      def tag_page_resource(tag, articles)
-        Sitemap::ProxyResource.new(@sitemap, link(tag), @tag_template).tap do |p|
+      def section_page_resource(tag, articles)
+        Sitemap::ProxyResource.new(@sitemap, link(section), @section_template).tap do |p|
           # Add metadata in local variables so it's accessible to
           # later extensions
           p.add_metadata locals: {
-            'page_type' => 'tag',
-            'tagname' => tag,
+            'page_type' => 'section',
+            'sectionname' => section,
             'articles' => articles,
             'blog_controller' => @blog_controller
           }
