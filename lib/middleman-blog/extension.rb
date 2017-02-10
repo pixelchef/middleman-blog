@@ -32,6 +32,7 @@ module Middleman
     option :generate_month_pages, true, 'Whether to generate month pages.'
     option :generate_day_pages, true, 'Whether to generate day pages.'
     option :generate_tag_pages, true, 'Whether to generate tag pages.'
+    option :generate_section_pages, true, 'Whether to generate section pages.'
     option :paginate, false, 'Whether to paginate lists of articles'
     option :per_page, 10, 'Number of articles per page when paginating'
     option :filter, nil, 'A proc that can be used to select articles that should be published based on user-defined criteria'
