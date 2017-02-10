@@ -12,7 +12,7 @@ module Middleman
         @blog_controller = blog_controller
         @tag_link_template = uri_template blog_controller.options.taglink
         @section_link_template = uri_template blog_controller.options.sectionlink
-        @tag_template = blog_controller.options.tag_template
+        @section_template = blog_controller.options.section_template
         @blog_data = blog_controller.data
 
         @generate_tag_pages = blog_controller.options.generate_tag_pages
@@ -22,7 +22,7 @@ module Middleman
       # @param [String] tag
       # @return [String]
       def link(tag)
-        apply_uri_template @tag_link_template, tag: safe_parameterize(tag)
+        apply_uri_template @section_link_template, tag: safe_parameterize(tag)
       end
 
       # Update the main sitemap resource list
