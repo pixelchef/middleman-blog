@@ -56,6 +56,27 @@ module Middleman
         articles.select {|article| article.locale == locale }
       end
 
+      # Returns a map from tag name to an array
+      # of BlogArticles associated with that tag.
+      # @return [Hash<String, Array<Middleman::Sitemap::Resource>>]
+      def tags
+        tags = {}
+
+        @_articles.each do |article|
+          article.tags.each do |tag|
+            tags[tag] ||= []
+            tags[tag] << article
+          end
+        end
+
+        # Sort each tag's list of articles
+        tags.each do |tag, articles|
+          tags[tag] = articles.sort_by(&:date).reverse
+        end
+
+        tags
+      end
+
       # Returns a map from section name to an array
       # of BlogArticles associated with that section.
       # @return [Hash<String, Array<Middleman::Sitemap::Resource>>]
