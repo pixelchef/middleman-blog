@@ -59,7 +59,7 @@ module Middleman
       # Returns a map from tag name to an array
       # of BlogArticles associated with that tag.
       # @return [Hash<String, Array<Middleman::Sitemap::Resource>>]
-      def section
+      def tags
         section = {}
 
         @_articles.each do |article|
